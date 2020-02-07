@@ -1,0 +1,22 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t prasannacn/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run prasannacn/react-test npm test -- --coverage
+
+after_success:
+    - docker build -t prasannacn/react-client ./client
+    - docker build -t prasannacn/react-nginx ./nginx
+    - docker build -t prasannacn/react-server ./server
+    - docker build -t prasannacn/react-worker ./worker
+    #log in docker CLI
+    - echo "$Docker_Pass" | docker login -u "$Docker_ID" --password-stdin
+    # push image to docker hub
+    - docker push prasannacn/react-client
+    - docker push prasannacn/react-nginx
+    - docker push prasannacn/react-server
+    - docker push prasannacn/react-worker
