@@ -1,0 +1,37 @@
+{
+    "AWSEBDockerrunversion": 2,
+    "ContainerDefinitions": [
+        {
+            "name": "client",
+            "image": "prasannacn/react-client:1.0",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "prasannacn/react-server:1.0",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "prasannacn/react-worker:1.0",
+            "hostname": "worker",
+            "essential":false
+        },
+        {
+            "name": "nginx",
+            "image": "prasannacn/react-nginx:1.0",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+
+            "links": ["client", "server"]
+        }
+    ]
+}

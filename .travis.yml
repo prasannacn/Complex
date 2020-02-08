@@ -24,3 +24,16 @@ after_success:
     - docker push prasannacn/react-nginx:1.0
     - docker push prasannacn/react-server:1.0
     - docker push prasannacn/react-worker:1.0
+
+deploy:
+    provider: elastcbeanstalk
+    region: us-west-1
+    app: Multi-docker
+    env: MultiDocker-env
+    bucket: elasticbeanstalk-us-west-1-221784226968
+    bucket_path: docker-Multi
+    on:
+        branch: master
+    access_key_id: $AWS_ID
+    secret_access_key:
+        secure: $AWS_KEY
