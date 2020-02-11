@@ -29,8 +29,10 @@ services:
         volumes: 
             - /app/node_modules
             - ./client:/app
-        export: DOCKER_CLIENT_TIMEOUT=120
-        export: COMPOSE_HTTP_TIMEOUT=120
+        environment:
+            - DOCKER_CLIENT_TIMEOUT=120
+            - COMPOSE_HTTP_TIMEOUT=120
+
         
     worker:
         build: 
